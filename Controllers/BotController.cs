@@ -14,9 +14,9 @@ namespace OneSignal.Controllers
     public class BotController : ControllerBase
     {
         
-        private readonly ILogger<WelcomeController> _logger;
+        private readonly ILogger<MarketController> _logger;
         private readonly IBotService botService;
-        public BotController(ILogger<WelcomeController> logger, IBotService botService)
+        public BotController(ILogger<MarketController> logger, IBotService botService)
         {
             _logger = logger;
             this.botService = botService;

@@ -1,0 +1,4 @@
+C:\Users\captainblack\source\repos\OneSignal\obj\Debug\netcoreapp2.2\OneSignal.csprojAssemblyReference.cache
+C:\Users\captainblack\source\repos\OneSignal\obj\Debug\netcoreapp2.2\OneSignal.AssemblyInfoInputs.cache
+C:\Users\captainblack\source\repos\OneSignal\obj\Debug\netcoreapp2.2\OneSignal.AssemblyInfo.cs
+C:\Users\captainblack\source\repos\OneSignal\obj\Debug\netcoreapp2.2\OneSignal.csproj.CoreCompileInputs.cache

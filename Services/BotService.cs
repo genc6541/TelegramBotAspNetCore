@@ -15,7 +15,7 @@ namespace OneSignal.Services
     public class BotService : IBotService
     {
         private readonly ITelegramBotService telegramBotService;
-        private ITelegramBotClient bot;
+        private readonly ITelegramBotClient bot;
         public BotService(ITelegramBotService telegramBotService)
         {
             this.telegramBotService = telegramBotService;
@@ -39,17 +39,41 @@ namespace OneSignal.Services
             }
         }
 
-        public void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
+        public async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
             var message = messageEventArgs.Message;
-
-        
-                switch (message.Text)
+            Coins coins;
+            bool isExistCoin = Enum.TryParse(message.Text, out coins);
+            if (isExistCoin) {
+                CoinService coinService = new CoinService(this);
+                Task.Run(async () =>
                 {
-                   case  "/start": // Welcome and description
+                    string result100 = await coinService.TradeDesicionSerivice(message.Text, 100);
+                    SendTextMessage($"{message.Text} 100 depth trade desicion : {result100}", 1232817668);
+                });
+                Task.Run(async () =>
+                {
+                    string result500 = await coinService.TradeDesicionSerivice(message.Text, 500);
+                    SendTextMessage($"{message.Text} 500 depth trade desicion : {result500}", 1232817668);
+
+                });
+
+                return;
+            }
+
+
+            switch (message.Text)
+                {
+                   case  "/start":
                         SendTextMessage("Welcome Bro!", message.Chat.Id);
                         break;
-                    default:
+                   case "/healthcheck": 
+                        SendTextMessage("Relax my friend, I'm working..", message.Chat.Id);
+                        break;
+                   case "/target":
+                        SendTextMessage("I will make you very rich..", message.Chat.Id);
+                        break;
+                default:
                         SendTextMessage("I dont understand your command", message.Chat.Id);
                         break;
                 }

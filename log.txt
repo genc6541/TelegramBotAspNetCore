@@ -1,0 +1,2 @@
+2021-01-28 10:31:13.048 +03:00 [INF] ask-> 99 BTC, price: 7.6E-06 ,coin:XRP, count: 62
+2021-01-28 10:31:23.095 +03:00 [INF] ask-> 99 BTC, price: 7.6E-06 ,coin:XRP, count: 62

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OneSignal.Services;
+using Serilog;
 using Telegram.Bot;
 
 namespace OneSignal
@@ -31,9 +32,18 @@ namespace OneSignal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
+            Log.Logger = new LoggerConfiguration()
+.MinimumLevel.Debug()
+.WriteTo.File("log.txt")
+.CreateLogger();
+            services.AddSingleton<IScanService>(provider => new ScanService(provider.GetRequiredService<IBotService>()));
+            services.AddSingleton<ICoinService>(provider => new CoinService(provider.GetRequiredService<IBotService>()));
             services.AddSingleton<ITelegramBotService>(provider => new TelegramBotService(this.BotToken));
             services.AddSingleton<IBotService>(provider => new BotService(provider.GetRequiredService<ITelegramBotService>()));
+            services.AddSingleton<IMarketService>(provider => new MarketServices(provider.GetRequiredService<IBotService>()));
+            services.AddSingleton<IMultiTaskService>(provider => new MultiTaskService(provider.GetRequiredService<IMarketService>()));
             _serviceProvider = services.BuildServiceProvider();
         }
 
